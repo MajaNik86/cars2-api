@@ -13,10 +13,34 @@ class CarsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cars = Car::all();
-        return $cars;
+        // zadatak 4 i 5:
+
+        $perPage = $request->per_page ?? 10;
+        $brandTerm = $request->query('brand');
+        $model = $request->query('model');
+        return Car::searchByBrand($brandTerm)->searchByModel($model)->paginate($perPage);
+        // $query = Car::query();
+
+        // if ($request->brand) {
+        //     $brand = $request->brand;
+        //     Car::searchByBrand($query, $brand);
+        // }
+        // if ($request->model) {
+        //     $model = $request->model;
+        //     Car::searchByModel($query, $model);
+        // }
+
+        // return $query->paginate($perPage);
+
+        // zadatak 2:
+        // $cars = Car::all();
+        // return $cars;
+
+        // zadatak 4:
+        // $perPage = $request->query('per_age', 99999);
+        // return Car::paginate($perPage);
     }
 
     /**

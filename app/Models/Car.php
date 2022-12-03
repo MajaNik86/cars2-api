@@ -18,4 +18,14 @@ class Car extends Model
         'engine',
         'number_of_doors'
     ];
+
+    public static function scopeSearchByBrand($query, $brand)
+    {
+        return $query->where('brand', 'LIKE', '%' . $brand . '%');
+    }
+
+    public static function scopeSearchByModel($query, $model)
+    {
+        return $query->where('model', 'LIKE', '%' . $model . '%');
+    }
 }
